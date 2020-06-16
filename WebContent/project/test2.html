@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-3.5.1.js"></script>
+<script>
+var R = new Array(10);
+function Node(){
+var K="";
+var S="";
+var V="";
+}
+
+function Item_trans(object){
+	var item = object.getElementsByTagName('item');
+	return item[0];
+	}
+
+function node_trans(object,name){
+	return object.getElementsByTagName(name)[0];
+	}
+
+function get_data(key){
+	$.ajax({
+	type:"GET",
+	url:"http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst",
+	data : "key="+ASuwgTn4%2BoY6PEMMTmYQZDQrbqk6LpbJdx3Zo2eQoGjC07lTfOKUcnsjetUpLGMoGsx%2FoubYmms%2BevT1TpKLEg%3D%3D+"&numOfRows=10&pageNo=1&CURRENT_DATE=2016121010&HOUR=24&COURSE_ID=1",
+	dataType : "xml",
+	success:function(object){
+	var item = Item_trans(object);
+	for(var i=0;i<10;i++){
+	R[i] = new Node();
+	R[i].K = node_trans(item,'R'+(i+1)).getElementsByTagName('courseAreaId')[0].firstChild.nodeValue;
+	R[i].S = node_trans(item,'R'+(i+1)).getElementsByTagName('courseAreaName')[0].firstChild.nodeValue;
+	R[i].V = node_trans(item,'R'+(i+1)).getElementsByTagName('courseId')[0].firstChild.nodeValue;
+	}
+	set_design(R);
+	},
+	error: function(xhr,status,error){
+	}
+	});
+	}
+
+function set_design(R){
+	for(var i=0; i<10; i++){
+	$("#search_lank").append("<LI><SPAN id=number class=number>"+(i+1)+"</SPAN><SPAN id=keyword class=keyword>"+R[i].K+"</SPAN><SPAN id=upndn class=upndn>"+R[i].S+"</SPAN><SPAN id=upndn_number class=upndn_number>"+R[i].V+"</SPAN></LI>");
+	}
+	}
+	$(document).ready(function(){
+	get_data("*****************");
+	});
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

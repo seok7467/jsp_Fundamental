@@ -1,0 +1,47 @@
+<!--ajax_proxy.html-->
+
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Get</title>
+    <script type="text/javascript" src="jquery-3.5.1.js"></script>
+    <script>
+
+        $(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                	/* 이주소만 바꾸면 됨 */
+                    url: 'proxy.jsp?url=http://openapi.seoul.go.kr:8088/4351664e61746a723235634e59694b/json/bikeList/1/5/',                    		
+                    type: 'GET',
+                    dataType: 'JSON',
+                    error: function (request,status,error) {
+                    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+                 
+                    },
+                    success: function (obj) {
+                       
+                        $("#sel").append(JSON.stringify(obj));
+                    }
+
+                });
+
+
+
+
+                
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <button id="btn">가져오기</button>
+    <div id="sel"></div>
+</body>
+
+</html>

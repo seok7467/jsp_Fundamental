@@ -1,0 +1,45 @@
+<!--ajax_proxy.html-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Get</title>
+    <script type="text/javascript" src="jquery-3.5.1.js"></script>
+    <script>
+
+        $(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                	/* 이주소만 바꾸면 됨 */
+                    url: 'proxy.jsp?url=http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst?serviceKey=ASuwgTn4%2BoY6PEMMTmYQZDQrbqk6LpbJdx3Zo2eQoGjC07lTfOKUcnsjetUpLGMoGsx%2FoubYmms%2BevT1TpKLEg%3D%3D&numOfRows=10&pageNo=1&dataType=JSON&CURRENT_DATE=2016121010&HOUR=24&COURSE_ID=1',
+                    		
+                    type: 'GET',
+                    dataType: 'json',
+                    error: function () {
+                        alert('error')
+                    },
+                    success: function (obj) {
+                       
+                        $("#sel").append(JSON.stringify(obj));
+                    }
+
+                });
+
+
+
+
+                
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <button id="btn">가져오기</button>
+    <div id="sel"></div>
+</body>
+
+</html>

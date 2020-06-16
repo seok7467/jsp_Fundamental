@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<cafelist>
+	<user>
+		<name>ㄱㄱㄱ</name>
+		<clubid>aaaa</clubid>
+	</user>
+	<user>
+		<name>ㄴㄴㄴ</name>
+		<clubid>bbbb</clubid>
+	</user>
+	<user>
+		<name>ㄷㄷㄷ</name>
+		<clubid>cccc</clubid>
+	</user>
+
+</cafelist>
