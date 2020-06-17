@@ -32,9 +32,10 @@ try {
 	<div class="row">
 		<div class="col-md-12">
 			<h3>공지사항 작성</h3>
-			<form method="post" name="f" action="save.jsp"></form>
+			<form method="post" name="f" action="save.jsp">
+			
 			<!-- form start -->
-			<form>
+			
 				<div class="form-group">
 					<label for="writer">작성자</label> <input type="text"
 						class="form-control" id="writer" name="writer"
@@ -74,17 +75,17 @@ try {
 			//falcy value
 			if(!writer){
 				alert('작성자를 입력해주세요');
-				$("writer").focus();
+				$("#writer").focus();
 				return;
 			}
 			if(!title){
 				alert('제목을 입력해주세요');
-				$("title").focus();
+				$("#title").focus();
 				return;
 			}
 			if(!content){
 				alert('내용을 입력해주세요');
-				$("content").focus();
+				$("#content").focus();
 				return;
 			}
 			
