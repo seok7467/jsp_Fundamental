@@ -5,7 +5,9 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../inc/header.jsp"%>
 <%
-	String tempPage = request.getParameter("page");
+	int displayCount = 5;
+int displayPageCount = 5;
+String tempPage = request.getParameter("page");
 int cPage = 0;
 if (tempPage == null || tempPage.length() == 0) {
 	cPage = 1;
@@ -27,8 +29,8 @@ An = a1+(n-1)*d
 */
 
 NoticeDao dao = NoticeDao.getInstance();
-int start = (cPage - 1) * 10;
-ArrayList<NoticeDto> list = dao.select(start, 10);
+int start = (cPage - 1) * displayCount;
+ArrayList<NoticeDto> list = dao.select(start, displayCount);
 %>
 
 <nav aria-label="breadcrumb">
@@ -86,29 +88,29 @@ ArrayList<NoticeDto> list = dao.select(start, 10);
 				int currentBlock = 0;
 				int totalBlock = 0;
 
-				if (totalRows % 10 == 0) {
-					totalPage = totalRows / 10;
+				if (totalRows % displayCount == 0) {
+					totalPage = totalRows / displayCount;
 				} else {
-					totalPage = totalRows / 10 + 1;
+					totalPage = totalRows / displayCount + 1;
 				}
 				if (totalPage == 0) {
 					totalPage = 1;
 				}
 
-				if (cPage % 10 == 0) {
-					currentBlock = cPage / 10;
+				if (cPage % displayPageCount == 0) {
+					currentBlock = cPage / displayPageCount;
 				} else {
-					currentBlock = cPage / 10 + 1;
+					currentBlock = cPage / displayPageCount + 1;
 				}
 
-				if (totalPage % 10 == 0) {
-					totalBlock = totalPage / 10;
+				if (totalPage % displayPageCount == 0) {
+					totalBlock = totalPage / displayPageCount;
 				} else {
-					totalBlock = totalPage / 10 + 1;
+					totalBlock = totalPage / displayPageCount + 1;
 				}
 
-				int startPage = 1 + (currentBlock - 1) * 10;
-				int endPage = 10 + (currentBlock - 1) * 10;
+				int startPage = 1 + (currentBlock - 1) * displayPageCount;
+				int endPage = displayPageCount + (currentBlock - 1) * displayPageCount;
 
 				if (currentBlock == totalBlock) {
 					endPage = totalPage;
@@ -140,7 +142,7 @@ ArrayList<NoticeDto> list = dao.select(start, 10);
 						<%
 							}
 						%>
- 					
+
 						<%
 							if (totalBlock == currentBlock) {
 						%>
@@ -157,7 +159,7 @@ ArrayList<NoticeDto> list = dao.select(start, 10);
 					</ul>
 				</nav>
 				<div class="text-right" style="margin-bottom: 20px;">
-					<a href="write.jsp" class="btn btn-outline-primary"
+					<a href="write.jsp?page=<%=cPage %>" class="btn btn-outline-primary"
 						style="margin: 0 0 20px 0">글쓰기</a>
 				</div>
 				<!-- form end -->

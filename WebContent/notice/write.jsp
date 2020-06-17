@@ -2,6 +2,20 @@
 	pageEncoding="utf-8"%>
 <%@ include file="../inc/header.jsp"%>
 
+<%
+	String tempPage = request.getParameter("page");
+int cPage = 0;
+if (tempPage == null || tempPage.length() == 0) {
+	cPage = 1;
+
+}
+
+try {
+	cPage = Integer.parseInt(tempPage);
+} catch (NumberFormatException e) {
+	cPage = 1;
+}
+%>
 
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb justify-content-end">
@@ -36,12 +50,13 @@
 
 				<div class="form-group">
 					<label for="content">내용</label>
-					<textarea class="form-control" id="content" name="content" rows="10"></textarea>
+					<textarea class="form-control" id="content" name="content"
+						rows="10"></textarea>
 				</div>
 			</form>
-			<div class="text-right" style="margin-bottom:20px;">
-			<a href=""  id ="saveNotice" class="btn btn-outline-danger">저장</a>
-			<a href="list.jsp" class="btn btn-outline-success">목록</a>
+			<div class="text-right" style="margin-bottom: 20px;">
+				<a href="" id="saveNotice" class="btn btn-outline-danger">저장</a> <a
+					href="list.jsp?page=<%=cPage%>" class="btn btn-outline-success">목록</a>
 			</div>
 
 			<!-- form end -->
@@ -49,6 +64,36 @@
 	</div>
 </div>
 
+<script>
+	$(function(){
+		$("#saveNotice").click(function(e){  //function()안에 e추가하고 e.prevent하면 원래 기능 없앰
+			e.preventDefault(); //이경우 savenotice의 원래 기능인 href=""으로 이동하기 기능 없앰
+			let writer = $("#writer").val();
+			let title = $("#title").val();
+			let content = $("#content").val();
+			//falcy value
+			if(!writer){
+				alert('작성자를 입력해주세요');
+				$("writer").focus();
+				return;
+			}
+			if(!title){
+				alert('제목을 입력해주세요');
+				$("title").focus();
+				return;
+			}
+			if(!content){
+				alert('내용을 입력해주세요');
+				$("content").focus();
+				return;
+			}
+			
+			
+			f.submit();
+			
+		});
+	});
+</script>
 
 
 
