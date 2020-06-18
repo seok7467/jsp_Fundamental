@@ -72,6 +72,10 @@
 					<li class="nav-item active"><a class="nav-link"
 						href="/member/login.jsp">로그인
 					</a></li>
+					
+					<li class="nav-item active"><a class="nav-link"
+						href="/member/join.jsp">회원가입
+					</a></li>
 
 
 					<%
