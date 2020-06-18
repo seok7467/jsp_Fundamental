@@ -1,7 +1,6 @@
 package kr.or.kpc.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,6 +74,88 @@ public class CustomerDao {
 
 		}
 		return dto;
+	}
+	
+	public int insert(CustomerDto dto) {
+		int resultCount = 0;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("INSERT INTO customer(c_email,c_pwd,c_name) ");
+			sql.append("VALUE(?,PASSWORD(?),?) ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 0;
+
+			pstmt.setString(++index, "dto.getEmail()");
+			pstmt.setString(++index, "dto.getPwd()");
+			pstmt.setString(++index, "dto.getName()");
+
+			resultCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstmt != null)
+					pstmt.close();
+
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return resultCount;
+	}
+	
+	
+	public int update(CustomerDto dto) {
+		int resultCount = 0;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ConnLocator.getConnect();
+			StringBuffer sql = new StringBuffer();
+			sql.append("UPDATE customer                ");
+			sql.append("SET c_pwd=PASSWORD(?),c_name=? ");
+			sql.append("WHERE c_email = ?              ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			int index = 0;
+
+			pstmt.setString(++index, "dto.getPwd()");
+			pstmt.setString(++index, "dto.getName()");
+			pstmt.setString(++index, "dto.getEmail()");
+
+			resultCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstmt != null)
+					pstmt.close();
+
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return resultCount;
 	}
 
 }
